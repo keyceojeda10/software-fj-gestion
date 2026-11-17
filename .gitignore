@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Logs generados al ejecutar (hay un ejemplo en docs/)
+logs/
+
+# Editores y sistema
+.vscode/
+.idea/
+.DS_Store
