@@ -74,9 +74,15 @@
   ✘ [31] Importar cliente desde un registro con formato corrupto
         → error inesperado controlado: AttributeError: 'list' object has no attribute 'get'
 
+=== 6. Reporte ===
+  ✘ [32] Exportar reporte a una carpeta inexistente
+        → error inesperado controlado: FileNotFoundError: [Errno 2] No such file or directory: 'no_existe/reporte.txt'
+  ✔ [33] Exportar reporte final
+        → Reporte guardado en logs/reporte_final.txt
+
 === Resumen final ===
 Clientes: 2 | Servicios: 4 | Reservas: 4
-Operaciones: 31 (exitosas 17, fallidas 14)
+Operaciones: 33 (exitosas 18, fallidas 15)
   RES-001 | Ana María Rojas | Sala Innovación | duración 3 | procesada | $196,350.00
   RES-002 | Ana María Rojas | Sala Innovación | duración 15 | pendiente | sin confirmar
   RES-003 | Luis Castillo | Portátil Lenovo ThinkPad | duración 7 | cancelada | $498,550.50

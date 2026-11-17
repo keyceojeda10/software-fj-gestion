@@ -151,5 +151,21 @@ class SistemaSoftwareFJ:
         lineas += [f"  {r.describir()}" for r in self.reservas]
         return "\n".join(lineas)
 
+    def exportar_reporte(self, ruta):
+        """Escribe el resumen en un archivo de texto.
+
+        Usa try/finally sin except: si la escritura falla, el error sube a quien
+        llamó (``ejecutar_operacion`` lo registra), pero el bloque finally
+        garantiza que el archivo se cierre siempre.
+        """
+        archivo = open(ruta, "w", encoding="utf-8")
+        try:
+            archivo.write("REPORTE FINAL - SOFTWARE FJ\n")
+            archivo.write(self.resumen() + "\n")
+        finally:
+            archivo.close()  # se ejecuta haya o no error al escribir
+            self._log.info("Archivo de reporte cerrado: %s", ruta)
+        return f"Reporte guardado en {ruta}"
+
 
 __all__ = ["SistemaSoftwareFJ", "TIPOS_SERVICIO"]
