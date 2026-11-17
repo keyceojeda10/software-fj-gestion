@@ -1,0 +1,95 @@
+2026-11-17 13:12:13 | INFO     | ===== Inicio de la simulación de Software FJ =====
+2026-11-17 13:12:13 | INFO     | Cliente registrado: CLI-001 | Ana María Rojas | doc *******789 | ana.rojas@correo.com
+2026-11-17 13:12:13 | INFO     | Operación 1 'Registrar cliente válido (Ana María Rojas)' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 1 finalizada
+2026-11-17 13:12:13 | ERROR    | Operación 2 'Registrar cliente con correo inválido' -> ClienteInvalidoError: [FJ-101] Correo electrónico con formato inválido (pedro.gomez@)
+2026-11-17 13:12:13 | DEBUG    | Operación 2 finalizada
+2026-11-17 13:12:13 | ERROR    | Operación 3 'Registrar cliente sin documento' -> ParametroFaltanteError: [FJ-102] Faltan datos obligatorios del cliente (documento)
+2026-11-17 13:12:13 | DEBUG    | Operación 3 finalizada
+2026-11-17 13:12:13 | ERROR    | Operación 4 'Registrar cliente con documento repetido' -> OperacionNoPermitidaError: [FJ-400] Ya existe un cliente con ese documento (*******789)
+2026-11-17 13:12:13 | DEBUG    | Operación 4 finalizada
+2026-11-17 13:12:13 | INFO     | Cliente registrado: CLI-002 | Luis Castillo | doc *****321 | lcastillo@empresa.co
+2026-11-17 13:12:13 | INFO     | Operación 5 'Registrar segundo cliente válido (Luis Castillo)' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 5 finalizada
+2026-11-17 13:12:13 | INFO     | Servicio creado: SRV-001 | Sala 'Sala Innovación' | $50,000/hora | capacidad 12 | disponible
+2026-11-17 13:12:13 | INFO     | Operación 6 'Crear servicio: sala de reuniones' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 6 finalizada
+2026-11-17 13:12:13 | INFO     | Servicio creado: SRV-002 | Equipo 'Portátil Lenovo ThinkPad' | $35,000/día | disponible
+2026-11-17 13:12:13 | INFO     | Operación 7 'Crear servicio: alquiler de portátil' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 7 finalizada
+2026-11-17 13:12:13 | INFO     | Servicio creado: SRV-003 | Asesoría 'Arquitectura de software' | $80,000/hora (nivel junior) | disponible
+2026-11-17 13:12:13 | INFO     | Operación 8 'Crear servicio: asesoría especializada' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 8 finalizada
+2026-11-17 13:12:13 | INFO     | Servicio creado: SRV-004 | Equipo 'Proyector 4K' | $60,000/día | NO disponible
+2026-11-17 13:12:13 | INFO     | Operación 9 'Crear servicio: proyector (en mantenimiento)' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 9 finalizada
+2026-11-17 13:12:13 | ERROR    | Operación 10 'Crear servicio con tarifa negativa' -> ServicioInvalidoError: [FJ-103] La tarifa base debe ser mayor que cero (-20000)
+2026-11-17 13:12:13 | DEBUG    | Operación 10 finalizada
+2026-11-17 13:12:13 | ERROR    | Operación 11 'Crear sala sin capacidad' -> ParametroFaltanteError: [FJ-102] Faltan datos para crear el servicio 'sala' (ReservaSala.__init__() missing 1 required positional argument: 'capacidad')
+2026-11-17 13:12:13 | ERROR    |     causado por TypeError: ReservaSala.__init__() missing 1 required positional argument: 'capacidad'
+2026-11-17 13:12:13 | DEBUG    | Operación 11 finalizada
+2026-11-17 13:12:13 | INFO     | Reserva RES-001 creada para Ana María Rojas (Sala Innovación)
+2026-11-17 13:12:13 | INFO     | Operación 12 'Crear reserva: Ana, sala 3 horas, 8 asistentes' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 12 finalizada
+2026-11-17 13:12:13 | INFO     | Reserva RES-001 confirmada por $196,350.00
+2026-11-17 13:12:13 | DEBUG    | Fin del intento de confirmación de RES-001 (estado: confirmada)
+2026-11-17 13:12:13 | INFO     | Operación 13 'Confirmar reserva de sala' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 13 finalizada
+2026-11-17 13:12:13 | INFO     | Reserva RES-001 procesada y facturada
+2026-11-17 13:12:13 | INFO     | Operación 14 'Procesar reserva de sala (factura)' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 14 finalizada
+2026-11-17 13:12:13 | ERROR    | Operación 15 'Cancelar una reserva ya procesada' -> OperacionNoPermitidaError: [FJ-400] No se puede cancelar esta reserva (RES-001 ya está procesada)
+2026-11-17 13:12:13 | DEBUG    | Operación 15 finalizada
+2026-11-17 13:12:13 | INFO     | Reserva RES-002 creada para Ana María Rojas (Sala Innovación)
+2026-11-17 13:12:13 | INFO     | Operación 16 'Crear reserva: sala 15 horas (fuera de rango)' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 16 finalizada
+2026-11-17 13:12:13 | DEBUG    | Fin del intento de confirmación de RES-002 (estado: pendiente)
+2026-11-17 13:12:13 | ERROR    | Operación 17 'Confirmar reserva con duración inválida' -> ReservaInvalidaError: [FJ-300] No se pudo confirmar la reserva RES-002 (La duración de 'Sala Innovación' debe estar entre 1 y 12 horas)
+2026-11-17 13:12:13 | ERROR    |     causado por ServicioInvalidoError: [FJ-103] La duración de 'Sala Innovación' debe estar entre 1 y 12 horas (15)
+2026-11-17 13:12:13 | DEBUG    | Operación 17 finalizada
+2026-11-17 13:12:13 | INFO     | Reserva RES-003 creada para Luis Castillo (Portátil Lenovo ThinkPad)
+2026-11-17 13:12:13 | INFO     | Operación 18 'Crear reserva: Luis, 2 portátiles por 7 días' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 18 finalizada
+2026-11-17 13:12:13 | INFO     | Reserva RES-003 confirmada por $498,550.50
+2026-11-17 13:12:13 | DEBUG    | Fin del intento de confirmación de RES-003 (estado: confirmada)
+2026-11-17 13:12:13 | INFO     | Operación 19 'Confirmar alquiler con 5 % de descuento adicional' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 19 finalizada
+2026-11-17 13:12:13 | INFO     | Reserva RES-003 cancelada. Motivo: el cliente ya no lo necesita
+2026-11-17 13:12:13 | INFO     | Operación 20 'Cancelar alquiler confirmado' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 20 finalizada
+2026-11-17 13:12:13 | ERROR    | Operación 21 'Procesar alquiler cancelado' -> OperacionNoPermitidaError: [FJ-400] Solo se procesan reservas confirmadas (RES-003 está cancelada)
+2026-11-17 13:12:13 | DEBUG    | Operación 21 finalizada
+2026-11-17 13:12:13 | ERROR    | Operación 22 'Reservar un servicio no disponible' -> ServicioNoDisponibleError: [FJ-200] El servicio no está disponible (Proyector 4K)
+2026-11-17 13:12:13 | DEBUG    | Operación 22 finalizada
+2026-11-17 13:12:13 | ERROR    | Operación 23 'Reservar con un cliente inexistente' -> RecursoNoEncontradoError: [FJ-600] Cliente no encontrado (CLI-999)
+2026-11-17 13:12:13 | DEBUG    | Operación 23 finalizada
+2026-11-17 13:12:13 | INFO     | Reserva RES-004 creada para Ana María Rojas (Arquitectura de software)
+2026-11-17 13:12:13 | INFO     | Operación 24 'Crear reserva de asesoría con duración 'tres'' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 24 finalizada
+2026-11-17 13:12:13 | DEBUG    | Fin del intento de confirmación de RES-004 (estado: pendiente)
+2026-11-17 13:12:13 | ERROR    | Operación 25 'Confirmar asesoría con duración no numérica' -> ReservaInvalidaError: [FJ-300] No se pudo confirmar la reserva RES-004 (El campo 'duracion' debe ser numérico)
+2026-11-17 13:12:13 | ERROR    |     causado por ServicioInvalidoError: [FJ-103] El campo 'duracion' debe ser numérico (tres)
+2026-11-17 13:12:13 | ERROR    |     causado por ValueError: could not convert string to float: 'tres'
+2026-11-17 13:12:13 | DEBUG    | Operación 25 finalizada
+2026-11-17 13:12:13 | INFO     | Operación 26 'Cotizar asesoría con un número: 4 horas' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 26 finalizada
+2026-11-17 13:12:13 | INFO     | Operación 27 'Cotizar asesoría con diccionario: 4 horas, nivel experto' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 27 finalizada
+2026-11-17 13:12:13 | INFO     | Operación 28 'Cotizar asesoría sin IVA y con 10 % de descuento' completada
+2026-11-17 13:12:13 | DEBUG    | Operación 28 finalizada
+2026-11-17 13:12:13 | ERROR    | Operación 29 'Cotizar asesoría con descuento del 150 %' -> CalculoInconsistenteError: [FJ-500] El costo total resultó negativo (descuento=150%)
+2026-11-17 13:12:13 | DEBUG    | Operación 29 finalizada
+2026-11-17 13:12:13 | ERROR    | Operación 30 'Cotizar asesoría con nivel inexistente' -> ServicioInvalidoError: [FJ-103] Nivel de asesor no válido (junior, senior o experto) (maestro)
+2026-11-17 13:12:13 | DEBUG    | Operación 30 finalizada
+2026-11-17 13:12:13 | CRITICAL | Operación 31 'Importar cliente desde un registro con formato corrupto' (error inesperado) -> AttributeError: 'list' object has no attribute 'get'
+2026-11-17 13:12:13 | DEBUG    | Traceback del error inesperado
+Traceback (most recent call last):
+  File "/home/keyce/Desktop/Tareas UNAD/PROGRAMACIÓN/TAREA 4/software_fj/software_fj/sistema.py", line 40, in ejecutar_operacion
+    resultado = funcion(*args, **kwargs)
+  File "/home/keyce/Desktop/Tareas UNAD/PROGRAMACIÓN/TAREA 4/software_fj/software_fj/sistema.py", line 78, in importar_cliente
+    datos = {campo: registro.get(campo) for campo in ("nombre", "documento", "correo", "telefono")}
+                    ^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+2026-11-17 13:12:13 | DEBUG    | Operación 31 finalizada
+2026-11-17 13:12:13 | INFO     | Resumen: 31 operaciones, 17 exitosas, 14 fallidas
+2026-11-17 13:12:13 | INFO     | ===== Fin de la simulación: el sistema terminó sin detenerse =====
