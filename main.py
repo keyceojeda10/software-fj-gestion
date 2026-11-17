@@ -7,13 +7,14 @@ funcionando sin detenerse.
 Uso:  python main.py
 """
 
+import os
 from pathlib import Path
 
 from software_fj.registro import configurar_registro
 from software_fj.sistema import SistemaSoftwareFJ
 
 CARPETA = Path(__file__).resolve().parent  # carpeta del proyecto
-RUTA_LOG = CARPETA / "logs" / "software_fj.log"
+RUTA_LOG = Path("logs") / "software_fj.log"  # ruta relativa a la carpeta del proyecto
 
 
 def titulo(texto):
@@ -22,8 +23,18 @@ def titulo(texto):
 
 
 def main():
+    os.chdir(CARPETA)  # trabaja siempre desde la carpeta del proyecto (rutas relativas)
     logger = configurar_registro(RUTA_LOG)  # todos los eventos y errores van a este archivo
     logger.info("===== Inicio de la simulación de Software FJ =====")
+    try:
+        simular(logger)
+    finally:  # try/finally: el cierre queda registrado pase lo que pase dentro de simular()
+        logger.info("===== Fin de la simulación =====")
+        print(f"\nLog guardado en: {RUTA_LOG}")
+
+
+def simular(logger):
+    """Ejecuta todas las operaciones de prueba sobre un sistema nuevo."""
     fj = SistemaSoftwareFJ()
     op = fj.ejecutar_operacion  # atajo: cada operación se ejecuta de forma segura
 
@@ -98,12 +109,15 @@ def main():
     op("Importar cliente desde un registro con formato corrupto", fj.importar_cliente,
        ["Marta", "52123456", "marta@correo.com"])  # una lista en vez de un diccionario
 
+    titulo("6. Reporte")
+    op("Exportar reporte a una carpeta inexistente", fj.exportar_reporte,
+       Path("no_existe") / "reporte.txt")  # open() falla: FileNotFoundError controlado
+    op("Exportar reporte final", fj.exportar_reporte, RUTA_LOG.parent / "reporte_final.txt")
+
     titulo("Resumen final")
     print(fj.resumen())
     logger.info("Resumen: %d operaciones, %d exitosas, %d fallidas",
                 fj.total, fj.exitosas, fj.fallidas)
-    logger.info("===== Fin de la simulación: el sistema terminó sin detenerse =====")
-    print(f"\nLog guardado en: {RUTA_LOG.relative_to(CARPETA)}")
 
 
 if __name__ == "__main__":
