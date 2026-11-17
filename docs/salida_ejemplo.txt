@@ -1,0 +1,85 @@
+
+=== 1. Clientes ===
+  ✔ [01] Registrar cliente válido (Ana María Rojas)
+        → CLI-001 | Ana María Rojas | doc *******789 | ana.rojas@correo.com
+  ✘ [02] Registrar cliente con correo inválido
+        → [FJ-101] Correo electrónico con formato inválido (pedro.gomez@)
+  ✘ [03] Registrar cliente sin documento
+        → [FJ-102] Faltan datos obligatorios del cliente (documento)
+  ✘ [04] Registrar cliente con documento repetido
+        → [FJ-400] Ya existe un cliente con ese documento (*******789)
+  ✔ [05] Registrar segundo cliente válido (Luis Castillo)
+        → CLI-002 | Luis Castillo | doc *****321 | lcastillo@empresa.co
+
+=== 2. Servicios ===
+  ✔ [06] Crear servicio: sala de reuniones
+        → SRV-001 | Sala 'Sala Innovación' | $50,000/hora | capacidad 12 | disponible
+  ✔ [07] Crear servicio: alquiler de portátil
+        → SRV-002 | Equipo 'Portátil Lenovo ThinkPad' | $35,000/día | disponible
+  ✔ [08] Crear servicio: asesoría especializada
+        → SRV-003 | Asesoría 'Arquitectura de software' | $80,000/hora (nivel junior) | disponible
+  ✔ [09] Crear servicio: proyector (en mantenimiento)
+        → SRV-004 | Equipo 'Proyector 4K' | $60,000/día | NO disponible
+  ✘ [10] Crear servicio con tarifa negativa
+        → [FJ-103] La tarifa base debe ser mayor que cero (-20000)
+  ✘ [11] Crear sala sin capacidad
+        → [FJ-102] Faltan datos para crear el servicio 'sala' (ReservaSala.__init__() missing 1 required positional argument: 'capacidad')
+        ↳ causa: TypeError: ReservaSala.__init__() missing 1 required positional argument: 'capacidad'
+
+=== 3. Reservas ===
+  ✔ [12] Crear reserva: Ana, sala 3 horas, 8 asistentes
+        → RES-001 | Ana María Rojas | Sala Innovación | duración 3 | pendiente | sin confirmar
+  ✔ [13] Confirmar reserva de sala
+        → RES-001 | Ana María Rojas | Sala Innovación | duración 3 | confirmada | $196,350.00
+  ✔ [14] Procesar reserva de sala (factura)
+        → Factura RES-001: Ana María Rojas - Sala Innovación - $196,350.00
+  ✘ [15] Cancelar una reserva ya procesada
+        → [FJ-400] No se puede cancelar esta reserva (RES-001 ya está procesada)
+  ✔ [16] Crear reserva: sala 15 horas (fuera de rango)
+        → RES-002 | Ana María Rojas | Sala Innovación | duración 15 | pendiente | sin confirmar
+  ✘ [17] Confirmar reserva con duración inválida
+        → [FJ-300] No se pudo confirmar la reserva RES-002 (La duración de 'Sala Innovación' debe estar entre 1 y 12 horas)
+        ↳ causa: ServicioInvalidoError: [FJ-103] La duración de 'Sala Innovación' debe estar entre 1 y 12 horas (15)
+  ✔ [18] Crear reserva: Luis, 2 portátiles por 7 días
+        → RES-003 | Luis Castillo | Portátil Lenovo ThinkPad | duración 7 | pendiente | sin confirmar
+  ✔ [19] Confirmar alquiler con 5 % de descuento adicional
+        → RES-003 | Luis Castillo | Portátil Lenovo ThinkPad | duración 7 | confirmada | $498,550.50
+  ✔ [20] Cancelar alquiler confirmado
+        → RES-003 | Luis Castillo | Portátil Lenovo ThinkPad | duración 7 | cancelada | $498,550.50
+  ✘ [21] Procesar alquiler cancelado
+        → [FJ-400] Solo se procesan reservas confirmadas (RES-003 está cancelada)
+  ✘ [22] Reservar un servicio no disponible
+        → [FJ-200] El servicio no está disponible (Proyector 4K)
+  ✘ [23] Reservar con un cliente inexistente
+        → [FJ-600] Cliente no encontrado (CLI-999)
+  ✔ [24] Crear reserva de asesoría con duración 'tres'
+        → RES-004 | Ana María Rojas | Arquitectura de software | duración tres | pendiente | sin confirmar
+  ✘ [25] Confirmar asesoría con duración no numérica
+        → [FJ-300] No se pudo confirmar la reserva RES-004 (El campo 'duracion' debe ser numérico)
+        ↳ causa: ServicioInvalidoError: [FJ-103] El campo 'duracion' debe ser numérico (tres)
+
+=== 4. Cotizaciones (métodos sobrecargados) ===
+  ✔ [26] Cotizar asesoría con un número: 4 horas
+        → 380800.0
+  ✔ [27] Cotizar asesoría con diccionario: 4 horas, nivel experto
+        → 761600.0
+  ✔ [28] Cotizar asesoría sin IVA y con 10 % de descuento
+        → 288000.0
+  ✘ [29] Cotizar asesoría con descuento del 150 %
+        → [FJ-500] El costo total resultó negativo (descuento=150%)
+  ✘ [30] Cotizar asesoría con nivel inexistente
+        → [FJ-103] Nivel de asesor no válido (junior, senior o experto) (maestro)
+
+=== 5. Error inesperado ===
+  ✘ [31] Importar cliente desde un registro con formato corrupto
+        → error inesperado controlado: AttributeError: 'list' object has no attribute 'get'
+
+=== Resumen final ===
+Clientes: 2 | Servicios: 4 | Reservas: 4
+Operaciones: 31 (exitosas 17, fallidas 14)
+  RES-001 | Ana María Rojas | Sala Innovación | duración 3 | procesada | $196,350.00
+  RES-002 | Ana María Rojas | Sala Innovación | duración 15 | pendiente | sin confirmar
+  RES-003 | Luis Castillo | Portátil Lenovo ThinkPad | duración 7 | cancelada | $498,550.50
+  RES-004 | Ana María Rojas | Arquitectura de software | duración tres | pendiente | sin confirmar
+
+Log guardado en: logs/software_fj.log
