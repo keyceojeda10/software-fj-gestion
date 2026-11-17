@@ -146,6 +146,14 @@ class TestSistema(BaseTest):
         with self.assertRaises(OperacionNoPermitidaError):
             fj.registrar_cliente(**datos)
 
+    def test_exportar_reporte_try_finally(self):
+        fj = SistemaSoftwareFJ()
+        ruta = Path(self.tmp.name) / "reporte.txt"
+        fj.exportar_reporte(ruta)
+        self.assertIn("REPORTE FINAL", ruta.read_text(encoding="utf-8"))
+        with self.assertRaises(FileNotFoundError):
+            fj.exportar_reporte(Path(self.tmp.name) / "no_existe" / "r.txt")
+
     def test_reserva_cliente_inexistente(self):
         fj = SistemaSoftwareFJ()
         sala = fj.crear_servicio("sala", nombre="Sala A", tarifa_base=50000, capacidad=5)
