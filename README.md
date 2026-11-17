@@ -19,14 +19,15 @@ ningún error detenga la aplicación.
   - `costo_total(duracion, impuesto=None, descuento=None)` acepta parámetros opcionales.
   - `cotizar()` (`functools.singledispatchmethod`) se comporta distinto si recibe un número o un diccionario.
 - **Manejo de excepciones**: jerarquía propia, `try/except`, `try/except/else`,
-  `try/except/finally` y encadenamiento con `raise ... from`.
+  `try/except/finally`, `try/finally` (exportar el reporte y cerrar la simulación) y
+  encadenamiento con `raise ... from`.
 - **Logs** en `logs/software_fj.log` con fecha, nivel (INFO, ERROR, CRITICAL) y la causa de cada error encadenado.
 
 ## Estructura
 
 ```
 software_fj/
-├── main.py                  # simulación de 31 operaciones válidas e inválidas
+├── main.py                  # simulación de 33 operaciones válidas e inválidas
 ├── software_fj/
 │   ├── excepciones.py       # jerarquía de excepciones personalizadas
 │   ├── registro.py          # configuración del archivo de logs
@@ -110,16 +111,16 @@ Requiere Python 3.10 o superior y no usa librerías externas.
 git clone https://github.com/keyceojeda10/software-fj-gestion.git
 cd software-fj-gestion
 python main.py              # corre la simulación y escribe logs/software_fj.log
-python -m unittest -v       # corre las 18 pruebas unitarias
+python -m unittest -v       # corre las 19 pruebas unitarias
 ```
 
 ## Simulación
 
-`main.py` ejecuta 31 operaciones: 17 terminan bien y 14 fallan a propósito. Entre las
+`main.py` ejecuta 33 operaciones: 18 terminan bien y 15 fallan a propósito. Entre las
 que fallan hay un correo inválido, un documento repetido, una tarifa negativa, una
 reserva de 15 horas, un servicio no disponible, un cliente inexistente, la cancelación
 de una reserva ya procesada, un descuento del 150 %, una duración `"tres"` y un registro
-corrupto que provoca un error inesperado. Todos los errores quedan en el log y el
+corrupto y un reporte enviado a una carpeta inexistente, que provocan errores inesperados. Todos los errores quedan en el log y el
 programa llega hasta el resumen final sin detenerse.
 
 Extracto de la salida (completa en [`docs/salida_ejemplo.txt`](docs/salida_ejemplo.txt)):
@@ -152,6 +153,7 @@ y un *pull request* que cierra el issue al fusionarse en `main`:
 | #4 | `feature/reservas` | Reserva con confirmar, cancelar y procesar |
 | #5 | `feature/sistema-y-simulacion` | Fachada del sistema y simulación de operaciones |
 | #6 | `feature/pruebas-y-docs` | Pruebas unitarias, ejemplos y README |
+| #13 | `feature/reporte-try-finally` | Reporte final con `try/finally` explícito |
 
 ## Autor
 
